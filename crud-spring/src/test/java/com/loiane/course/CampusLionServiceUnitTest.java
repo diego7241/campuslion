@@ -84,7 +84,41 @@ class CampusLionServiceUnitTest {
     }
 
     @Test
-    @DisplayName("CU-07: eliminar un curso inexistente lanza RecordNotFoundException")
+    @DisplayName("CU-06: actualizar usando el nombre de otro curso lanza BusinessException y no guarda")
+    void updateRejectsNameOfAnotherCourse() {
+        Course existing = TestData.createValidCourse();
+        Course other = TestData.createValidCourse();
+        other.setId(2L);
+        CourseRequestDTO request = TestData.createValidCourseRequest();
+        when(courseRepository.findById(1L)).thenReturn(Optional.of(existing));
+        when(courseRepository.findByNameIgnoringRestriction(request.name())).thenReturn(List.of(other));
+
+        assertThrows(BusinessException.class, () -> courseService.update(1L, request));
+
+        verify(courseRepository, never()).save(any());
+    }
+
+    @Test
+    @DisplayName("CU-07: consultar un curso con id inexistente lanza RecordNotFoundException")
+    void findByIdMissingCourseThrowsNotFound() {
+        when(courseRepository.findById(99L)).thenReturn(Optional.empty());
+
+        assertThrows(RecordNotFoundException.class, () -> courseService.findById(99L));
+    }
+
+    @Test
+    @DisplayName("CU-08: eliminar un curso existente invoca el borrado del repositorio (soft delete a nivel de entidad)")
+    void deleteExistingCourseCallsRepositoryDelete() {
+        Course existing = TestData.createValidCourse();
+        when(courseRepository.findById(1L)).thenReturn(Optional.of(existing));
+
+        courseService.delete(1L);
+
+        verify(courseRepository).delete(existing);
+    }
+
+    @Test
+    @DisplayName("Eliminar un curso inexistente lanza RecordNotFoundException")
     void deleteMissingCourseThrowsNotFound() {
         when(courseRepository.findById(99L)).thenReturn(Optional.empty());
 

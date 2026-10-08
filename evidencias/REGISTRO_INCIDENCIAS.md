@@ -1,7 +1,7 @@
 # Registro de incidencias — CampusLion (APF2)
 
 Entorno: backend Spring Boot 4 / Java 25, base H2 en memoria, perfil `test`. Pruebas ejecutadas el 2026-10-07.
-Evidencia: `APF2_seguridad_ANTES.txt` y `APF2_seguridad_DESPUES.txt` (27 pruebas), `APF2_regresion_completa.log` (87 tests).
+Evidencia: `APF2_seguridad_ANTES.txt` y `APF2_seguridad_DESPUES.txt` (27 pruebas), `APF2_regresion_completa.log` (94 tests).
 
 | ID | Incidencia | Cómo se detectó | Severidad | Causa | Corrección | Verificación | Estado |
 |---|---|---|---|---|---|---|---|

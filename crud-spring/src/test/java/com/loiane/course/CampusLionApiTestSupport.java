@@ -49,7 +49,11 @@ abstract class CampusLionApiTestSupport {
     }
 
     protected static String courseJson(String name, String lessonName) {
+        return courseJson(name, lessonName, "dQw4w9WgXcQ");
+    }
+
+    protected static String courseJson(String name, String lessonName, String youtubeUrl) {
         return "{\"name\":\"" + name + "\",\"category\":\"Back-end\","
-                + "\"lessons\":[{\"name\":\"" + lessonName + "\",\"youtubeUrl\":\"dQw4w9WgXcQ\"}]}";
+                + "\"lessons\":[{\"name\":\"" + lessonName + "\",\"youtubeUrl\":\"" + youtubeUrl + "\"}]}";
     }
 }

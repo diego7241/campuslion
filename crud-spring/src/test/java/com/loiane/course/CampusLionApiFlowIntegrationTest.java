@@ -70,6 +70,33 @@ class CampusLionApiFlowIntegrationTest extends CampusLionApiTestSupport {
     }
 
     @Test
+    @DisplayName("CI-03: una URL de YouTube de 11 caracteres se acepta y una de 12 se rechaza")
+    void youtubeUrlLengthBoundary() {
+        ResponseEntity<String> eleven = send(HttpMethod.POST, API, courseJson("Curso Limite Url Once", "Leccion valida", "dQw4w9WgXcQ"));
+        ResponseEntity<String> twelve = send(HttpMethod.POST, API, courseJson("Curso Limite Url Doce", "Leccion valida", "dQw4w9WgXcQa"));
+
+        assertEquals(HttpStatus.CREATED, eleven.getStatusCode());
+        assertEquals(HttpStatus.BAD_REQUEST, twelve.getStatusCode());
+    }
+
+    @Test
+    @DisplayName("CU-08: un curso eliminado no se borra fisicamente: su nombre sigue reservado")
+    void deletedCourseStaysInDatabaseAsInactive() {
+        String json = courseJson("Curso Borrado Logico", "Leccion de prueba");
+        ResponseEntity<String> created = send(HttpMethod.POST, API, json);
+        assertEquals(HttpStatus.CREATED, created.getStatusCode());
+        Matcher matcher = ID.matcher(created.getBody());
+        assertTrue(matcher.find());
+
+        ResponseEntity<String> deleted = send(HttpMethod.DELETE, API + "/" + matcher.group(1), null);
+        assertEquals(HttpStatus.NO_CONTENT, deleted.getStatusCode());
+
+        ResponseEntity<String> recreated = send(HttpMethod.POST, API, json);
+        assertTrue(recreated.getStatusCode().is4xxClientError(),
+                "el registro sigue en la base como inactivo, asi que el nombre no puede reutilizarse");
+    }
+
+    @Test
     @DisplayName("CI-04: el listado respeta el tamano de pagina solicitado")
     void listingIsPaginated() {
         ResponseEntity<String> page = send(HttpMethod.GET, API + "?page=0&pageSize=2", null);
