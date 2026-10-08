@@ -23,7 +23,7 @@ describe('App', () => {
     fixture.detectChanges();
     await fixture.whenStable();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Courses App');
+    expect(compiled.querySelector('h1')?.textContent).toContain('CampusLion');
   });
 
   it('should contain a router-outlet', () => {
