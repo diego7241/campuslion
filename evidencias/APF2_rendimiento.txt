@@ -1,0 +1,14 @@
+APF2 - Rendimiento basico CampusLion - 2026-10-07 20:02
+300 peticiones por escenario. Tiempos en milisegundos.
+
+Escenario                  Concurr.    Media  Mediana      P95      Max    Req/s  Errores
+-----------------------------------------------------------------------------------------
+GET listado paginado              1     13.6     15.1     28.5     37.4     73.5        0
+GET listado paginado             10      8.0      7.3     13.7     23.7   1214.2        0
+GET listado paginado             50     18.5     17.8     30.6     40.4   1430.4        0
+GET curso por id                  1     10.0     12.9     24.6     28.1     99.6        0
+GET curso por id                 10      4.4      4.2      6.1     10.5   2201.7        0
+GET curso por id                 50     14.1     13.5     24.1     32.4   1931.5        0
+GET busqueda por nombre           1      9.8      3.9     25.2     28.3    101.8        0
+GET busqueda por nombre          10      5.1      4.9      7.2      9.0   1920.4        0
+GET busqueda por nombre          50     16.0     15.6     25.4     35.7   1847.7        0

@@ -1,0 +1,33 @@
+APF2 - Seguridad basica CampusLion - 2026-10-07 19:48
+
+Prueba                                                      Esperado                          Obtenido                      Veredicto
+------------------------------------------------------------------------------------------------------------------------------------------
+S01 GET sin credenciales                                    401/403                           200                           HALLAZGO
+S02 POST sin credenciales                                   401/403                           201                           HALLAZGO
+S03 DELETE sin credenciales                                 401/403                           204                           HALLAZGO
+S04 SQLi en busqueda: ' OR '1'='1                           sin resultados / sin error 500    200, 0 resultados             CUMPLE
+S05 SQLi en busqueda: x'; DROP TABLE course;--              sin resultados / sin error 500    200, 0 resultados             CUMPLE
+S06 SQLi en busqueda: %' UNION SELECT * FROM cours          sin resultados / sin error 500    200, 0 resultados             CUMPLE
+S07 SQLi en nombre de curso                                 400 (rechazado)                   400                           CUMPLE
+S08 Integridad tras SQLi (total de cursos)                  4                                 4                             CUMPLE
+S09 XSS en nombre de curso                                  400 (rechazado)                   400                           CUMPLE
+S10 XSS en nombre de leccion                                400 (rechazado)                   201                           HALLAZGO
+S11 Nombre de 200.000 caracteres                            400                               400                           CUMPLE
+S12 JSON malformado                                         400 sin filtrar detalles internos 400, fuga=False               CUMPLE
+S13 Id no numerico                                          400 sin filtrar detalles internos 400, fuga=False               CUMPLE
+S14 Id negativo                                             400/404                           400                           CUMPLE
+S15 Id inexistente: sin fuga de datos internos              404 sin stacktrace                404, fuga=False               CUMPLE
+S16 Campos _id/status inyectados en el JSON                 ignorados por el servidor         201, id asignado=7            CUMPLE
+S17 Exposicion de /h2-console (consola de base de datos)    404/401/403                       200                           HALLAZGO
+S18 Exposicion de /swagger-ui.html (documentacion Swagger)  404/401/403                       200                           HALLAZGO
+S19 Exposicion de /v3/api-docs (esquema OpenAPI)            404/401/403                       200                           HALLAZGO
+S20 Exposicion de /actuator (indice de actuator)            404/401/403                       200                           HALLAZGO
+S21 Exposicion de /actuator/env (variables de entorno)      404/401/403                       404                           CUMPLE
+S22 Exposicion de /actuator/beans (beans de Spring)         404/401/403                       404                           CUMPLE
+S23 Cabecera x-content-type-options                         presente                          AUSENTE                       HALLAZGO
+S24 Cabecera x-frame-options                                presente                          AUSENTE                       HALLAZGO
+S25 Cabecera strict-transport-security                      presente                          AUSENTE                       HALLAZGO
+S26 Cabecera content-security-policy                        presente                          AUSENTE                       HALLAZGO
+S27 CORS con origen no autorizado                           sin Access-Control-Allow-Origin   ausente                       CUMPLE
+
+Total: 27 pruebas | CUMPLE: 15 | HALLAZGO: 12
