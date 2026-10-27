@@ -1,0 +1,682 @@
+{
+	"id": "1a8af634-0dd7-4a3e-b77c-13fe1b995a03",
+	"name": "CampusLion API - APF2 v2",
+	"timestamp": "2026-10-27T17:57:09.168Z",
+	"collection_id": "59252560-358f84ea-48c3-4010-afb8-a8e7c922938b",
+	"folder_id": 0,
+	"environment_id": "0",
+	"totalPass": 35,
+	"delay": 0,
+	"persist": true,
+	"status": "finished",
+	"startedAt": "2026-10-27T17:57:06.428Z",
+	"totalFail": 0,
+	"results": [
+		{
+			"id": "0bea2350-9e2b-4696-8733-f1f8f5d49fd5",
+			"name": "PM-01 Listar cursos paginado (positivo)",
+			"url": "http://localhost:8095/api/courses?page=0&pageSize=2",
+			"time": 47,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status 200": true,
+				"Responde en menos de 500 ms": true,
+				"Esquema: courses, totalElements, totalPages": true,
+				"Respeta pageSize=2": true
+			},
+			"testPassFailCounts": {
+				"Status 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Responde en menos de 500 ms": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Esquema: courses, totalElements, totalPages": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Respeta pageSize=2": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				47
+			],
+			"allTests": [
+				{
+					"Status 200": true,
+					"Responde en menos de 500 ms": true,
+					"Esquema: courses, totalElements, totalPages": true,
+					"Respeta pageSize=2": true
+				}
+			]
+		},
+		{
+			"id": "c211ebe0-4042-417a-b5f2-4aefab1d06df",
+			"name": "PM-02 Consultar curso por id existente (positivo)",
+			"url": "http://localhost:8095/api/courses/1",
+			"time": 29,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status 200": true,
+				"Responde en menos de 500 ms": true,
+				"Devuelve el id 1 con nombre y lecciones": true,
+				"Categoria valida": true
+			},
+			"testPassFailCounts": {
+				"Status 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Responde en menos de 500 ms": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Devuelve el id 1 con nombre y lecciones": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Categoria valida": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				29
+			],
+			"allTests": [
+				{
+					"Status 200": true,
+					"Responde en menos de 500 ms": true,
+					"Devuelve el id 1 con nombre y lecciones": true,
+					"Categoria valida": true
+				}
+			]
+		},
+		{
+			"id": "387d2c47-817a-472a-87b7-ac2873a1e475",
+			"name": "PM-03 Consultar curso inexistente (negativo)",
+			"url": "http://localhost:8095/api/courses/999999",
+			"time": 48,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Status 404": true,
+				"No expone stacktrace": true
+			},
+			"testPassFailCounts": {
+				"Status 404": {
+					"pass": 1,
+					"fail": 0
+				},
+				"No expone stacktrace": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				48
+			],
+			"allTests": [
+				{
+					"Status 404": true,
+					"No expone stacktrace": true
+				}
+			]
+		},
+		{
+			"id": "9957d138-baf9-4902-b1d8-58139f4cf336",
+			"name": "PM-04 Consultar con id no numerico (negativo)",
+			"url": "http://localhost:8095/api/courses/abc",
+			"time": 13,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status 400": true,
+				"No expone stacktrace": true
+			},
+			"testPassFailCounts": {
+				"Status 400": {
+					"pass": 1,
+					"fail": 0
+				},
+				"No expone stacktrace": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				13
+			],
+			"allTests": [
+				{
+					"Status 400": true,
+					"No expone stacktrace": true
+				}
+			]
+		},
+		{
+			"id": "c666f89b-9b80-40ef-bcda-682c759a41de",
+			"name": "PM-05 Buscar por nombre (positivo)",
+			"url": "http://localhost:8095/api/courses/searchByName?name=Course",
+			"time": 392,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status 200": true,
+				"Responde en menos de 500 ms": true,
+				"Devuelve un arreglo con coincidencias": true
+			},
+			"testPassFailCounts": {
+				"Status 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Responde en menos de 500 ms": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Devuelve un arreglo con coincidencias": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				392
+			],
+			"allTests": [
+				{
+					"Status 200": true,
+					"Responde en menos de 500 ms": true,
+					"Devuelve un arreglo con coincidencias": true
+				}
+			]
+		},
+		{
+			"id": "0fea2f7b-2bf6-4763-bc42-1438bced02d9",
+			"name": "PM-06 Crear curso valido (positivo)",
+			"url": "http://localhost:8095/api/courses",
+			"time": 249,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Status 201": true,
+				"Responde en menos de 500 ms": true,
+				"Devuelve el curso creado con id": true
+			},
+			"testPassFailCounts": {
+				"Status 201": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Responde en menos de 500 ms": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Devuelve el curso creado con id": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				249
+			],
+			"allTests": [
+				{
+					"Status 201": true,
+					"Responde en menos de 500 ms": true,
+					"Devuelve el curso creado con id": true
+				}
+			]
+		},
+		{
+			"id": "682a0cd5-6bf4-4966-b595-0f4cc9a7307b",
+			"name": "PM-07 Crear curso con nombre duplicado (negativo, RF-02)",
+			"url": "http://localhost:8095/api/courses",
+			"time": 12,
+			"responseCode": {
+				"code": 409,
+				"name": "Conflict"
+			},
+			"tests": {
+				"Status 409": true,
+				"Mensaje de conflicto": true
+			},
+			"testPassFailCounts": {
+				"Status 409": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Mensaje de conflicto": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				12
+			],
+			"allTests": [
+				{
+					"Status 409": true,
+					"Mensaje de conflicto": true
+				}
+			]
+		},
+		{
+			"id": "878ad11d-b9bf-4142-bbac-1b3ed26afa72",
+			"name": "PM-08 Crear curso con nombre de 4 caracteres (limite inferior)",
+			"url": "http://localhost:8095/api/courses",
+			"time": 51,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status 400": true
+			},
+			"testPassFailCounts": {
+				"Status 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				51
+			],
+			"allTests": [
+				{
+					"Status 400": true
+				}
+			]
+		},
+		{
+			"id": "cd07878f-521e-4810-a250-71e2abe86a6a",
+			"name": "PM-09 Crear curso con categoria invalida",
+			"url": "http://localhost:8095/api/courses",
+			"time": 12,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status 400": true
+			},
+			"testPassFailCounts": {
+				"Status 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				12
+			],
+			"allTests": [
+				{
+					"Status 400": true
+				}
+			]
+		},
+		{
+			"id": "013c57ee-07e0-4bfa-84f8-2cee50827f92",
+			"name": "PM-10 Crear curso sin lecciones",
+			"url": "http://localhost:8095/api/courses",
+			"time": 6,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status 400": true
+			},
+			"testPassFailCounts": {
+				"Status 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				6
+			],
+			"allTests": [
+				{
+					"Status 400": true
+				}
+			]
+		},
+		{
+			"id": "72d3a4b6-3738-4d53-8e7e-a356eb746f17",
+			"name": "PM-11 Crear curso con URL de YouTube de 12 caracteres",
+			"url": "http://localhost:8095/api/courses",
+			"time": 9,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status 400": true
+			},
+			"testPassFailCounts": {
+				"Status 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				9
+			],
+			"allTests": [
+				{
+					"Status 400": true
+				}
+			]
+		},
+		{
+			"id": "cb1a99c8-0b91-4108-add3-23dccfc3f185",
+			"name": "PM-12 Crear curso con HTML en nombre de leccion (seguridad, INC-03)",
+			"url": "http://localhost:8095/api/courses",
+			"time": 11,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status 400": true
+			},
+			"testPassFailCounts": {
+				"Status 400": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				11
+			],
+			"allTests": [
+				{
+					"Status 400": true
+				}
+			]
+		},
+		{
+			"id": "d7cd6815-0520-4bb9-99da-b53a3d8cf886",
+			"name": "PM-13 Actualizar curso creado (positivo)",
+			"url": "http://localhost:8095/api/courses/5",
+			"time": 73,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status 200": true,
+				"Persisten los cambios": true
+			},
+			"testPassFailCounts": {
+				"Status 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Persisten los cambios": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				73
+			],
+			"allTests": [
+				{
+					"Status 200": true,
+					"Persisten los cambios": true
+				}
+			]
+		},
+		{
+			"id": "b35bd9e2-8952-4820-b1ae-f8cd80266ae7",
+			"name": "PM-14 Eliminar curso creado (positivo)",
+			"url": "http://localhost:8095/api/courses/5",
+			"time": 29,
+			"responseCode": {
+				"code": 204,
+				"name": "No Content"
+			},
+			"tests": {
+				"Status 204": true
+			},
+			"testPassFailCounts": {
+				"Status 204": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				29
+			],
+			"allTests": [
+				{
+					"Status 204": true
+				}
+			]
+		},
+		{
+			"id": "e20d701a-b6c0-4eab-82ce-0a4da1ad9f42",
+			"name": "PM-15 Consultar curso eliminado (soft delete)",
+			"url": "http://localhost:8095/api/courses/5",
+			"time": 9,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Status 404": true
+			},
+			"testPassFailCounts": {
+				"Status 404": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				9
+			],
+			"allTests": [
+				{
+					"Status 404": true
+				}
+			]
+		},
+		{
+			"id": "26b7bc95-1e17-4c0a-b8b1-c5e86abbdbf7",
+			"name": "PM-16 Recrear nombre de curso eliminado (RF-02)",
+			"url": "http://localhost:8095/api/courses",
+			"time": 15,
+			"responseCode": {
+				"code": 409,
+				"name": "Conflict"
+			},
+			"tests": {
+				"Status 409": true
+			},
+			"testPassFailCounts": {
+				"Status 409": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				15
+			],
+			"allTests": [
+				{
+					"Status 409": true
+				}
+			]
+		},
+		{
+			"id": "b597a9eb-edcc-4d69-b632-36383c7c9a35",
+			"name": "PM-17 Eliminar curso inexistente (negativo)",
+			"url": "http://localhost:8095/api/courses/999999",
+			"time": 9,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Status 404": true
+			},
+			"testPassFailCounts": {
+				"Status 404": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				9
+			],
+			"allTests": [
+				{
+					"Status 404": true
+				}
+			]
+		},
+		{
+			"id": "ab9d0416-be34-47d6-8edd-df4e91e34c3b",
+			"name": "PM-18 Cabeceras de seguridad (INC-06)",
+			"url": "http://localhost:8095/api/courses",
+			"time": 22,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status 200": true,
+				"X-Content-Type-Options: nosniff": true,
+				"X-Frame-Options: DENY": true,
+				"Content-Security-Policy presente": true
+			},
+			"testPassFailCounts": {
+				"Status 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"X-Content-Type-Options: nosniff": {
+					"pass": 1,
+					"fail": 0
+				},
+				"X-Frame-Options: DENY": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Content-Security-Policy presente": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				22
+			],
+			"allTests": [
+				{
+					"Status 200": true,
+					"X-Content-Type-Options: nosniff": true,
+					"X-Frame-Options: DENY": true,
+					"Content-Security-Policy presente": true
+				}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 1036,
+	"collection": {
+		"requests": [
+			{
+				"id": "0bea2350-9e2b-4696-8733-f1f8f5d49fd5",
+				"method": "GET"
+			},
+			{
+				"id": "c211ebe0-4042-417a-b5f2-4aefab1d06df",
+				"method": "GET"
+			},
+			{
+				"id": "387d2c47-817a-472a-87b7-ac2873a1e475",
+				"method": "GET"
+			},
+			{
+				"id": "9957d138-baf9-4902-b1d8-58139f4cf336",
+				"method": "GET"
+			},
+			{
+				"id": "c666f89b-9b80-40ef-bcda-682c759a41de",
+				"method": "GET"
+			},
+			{
+				"id": "0fea2f7b-2bf6-4763-bc42-1438bced02d9",
+				"method": "POST"
+			},
+			{
+				"id": "682a0cd5-6bf4-4966-b595-0f4cc9a7307b",
+				"method": "POST"
+			},
+			{
+				"id": "878ad11d-b9bf-4142-bbac-1b3ed26afa72",
+				"method": "POST"
+			},
+			{
+				"id": "cd07878f-521e-4810-a250-71e2abe86a6a",
+				"method": "POST"
+			},
+			{
+				"id": "013c57ee-07e0-4bfa-84f8-2cee50827f92",
+				"method": "POST"
+			},
+			{
+				"id": "72d3a4b6-3738-4d53-8e7e-a356eb746f17",
+				"method": "POST"
+			},
+			{
+				"id": "cb1a99c8-0b91-4108-add3-23dccfc3f185",
+				"method": "POST"
+			},
+			{
+				"id": "d7cd6815-0520-4bb9-99da-b53a3d8cf886",
+				"method": "PUT"
+			},
+			{
+				"id": "b35bd9e2-8952-4820-b1ae-f8cd80266ae7",
+				"method": "DELETE"
+			},
+			{
+				"id": "e20d701a-b6c0-4eab-82ce-0a4da1ad9f42",
+				"method": "GET"
+			},
+			{
+				"id": "26b7bc95-1e17-4c0a-b8b1-c5e86abbdbf7",
+				"method": "POST"
+			},
+			{
+				"id": "b597a9eb-edcc-4d69-b632-36383c7c9a35",
+				"method": "DELETE"
+			},
+			{
+				"id": "ab9d0416-be34-47d6-8edd-df4e91e34c3b",
+				"method": "GET"
+			}
+		]
+	}
+}

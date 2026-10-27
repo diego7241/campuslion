@@ -1,0 +1,54 @@
+=== EJECUCION 1: escritura.js con backend en estado degradado (reproduccion INC-01) - 27/10/2026 ===
+PS C:\Users\Lenovo\Desktop\campuslion\evidencias\k6> k6 run -e BASE_URL=http://localhost:8095/api/courses escritura.js
+
+     scenarios: (100.00%) 1 scenario, 20 max VUs, 2m0s max duration (incl. graceful stop):
+              * default: Up to 20 looping VUs for 1m30s over 3 stages (gracefulRampDown: 30s, gracefulStop: 30s)
+
+     ✗ creado 201
+      ↳  0% — ✓ 0 / ✗ 1509
+
+     checks.....................: 0.00%   ✓ 0         ✗ 1509
+     data_received..............: 605 kB  6.7 kB/s
+     data_sent..................: 413 kB  4.5 kB/s
+     http_req_duration..........: avg=5.1ms    min=664.9µs med=3.82ms max=120.32ms p(90)=8.35ms p(95)=10.16ms
+     ✓ { operacion:crear }......: avg=5.1ms    min=664.9µs med=3.82ms max=120.32ms p(90)=8.35ms p(95)=10.16ms
+   ✗ http_req_failed............: 100.00% ✓ 1509      ✗ 0   
+     http_reqs..................: 1509    16.617027/s
+     iterations.................: 1509    16.617027/s
+     vus........................: 1       min=1       max=20
+
+running (1m30.8s), 00/20 VUs, 1509 complete and 0 interrupted iterations
+ERRO[0091] thresholds on metrics 'http_req_failed' have been crossed 
+
+=== EJECUCION 2: diagnostico con --http-debug=full (1 VU, 1 iteracion) ===
+PS C:\Users\Lenovo\Desktop\campuslion\evidencias\k6> k6 run --vus 1 --iterations 1 --http-debug=full -e BASE_URL=http://localhost:8095/api/courses escritura.js
+
+INFO[0000] Request:
+POST /api/courses HTTP/1.1
+Host: localhost:8095
+User-Agent: Grafana k6/2.3.0
+Content-Length: 137
+Content-Type: application/json
+Accept-Encoding: gzip
+
+{"name":"Carga Escritura Usuario 1 Iteracion 0","category":"Back-end","lessons":[{"name":"Leccion de carga","youtubeUrl":"Fj3Zvf-N4bk"}]}
+
+INFO[0000] Response:
+HTTP/1.1 409 
+Content-Security-Policy: default-src 'none'; frame-ancestors 'none'
+Content-Type: application/problem+json
+Date: Tue, 27 Oct 2026 18:15:44 GMT
+Referrer-Policy: no-referrer
+X-Content-Type-Options: nosniff
+X-Frame-Options: DENY
+
+{"detail":"The operation conflicts with existing data","instance":"/api/courses","status":409,"title":"Conflict"}
+
+     ✗ creado 201
+      ↳  0% — ✓ 0 / ✗ 1
+   ✗ http_req_failed............: 100.00% ✓ 1        ✗ 0  
+
+=== CONCLUSION ===
+Cuerpo valido segun validadores; mismo POST fue 201 en Postman (PM-06) antes del fallo.
+Tras reinicio en frio del backend, escritura.js -> 1510/1510 creados (ver escritura_ok.txt).
+Se reproduce INC-01 y se amplia su alcance a POST.

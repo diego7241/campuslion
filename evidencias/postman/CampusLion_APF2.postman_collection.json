@@ -1,0 +1,728 @@
+{
+  "info": {
+    "name": "CampusLion API - APF2 v2",
+    "_postman_id": "campuslion-apf2-v2",
+    "description": "Validacion REST de CampusLion (Semana 10). Ejecutar en orden con Collection Runner. Backend en localhost:8095, reiniciado desde cero.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "PM-01 Listar cursos paginado (positivo)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 200\", () => pm.response.to.have.status(200));",
+              "pm.test(\"Responde en menos de 500 ms\", () => pm.expect(pm.response.responseTime).to.be.below(500));",
+              "const j = pm.response.json();",
+              "pm.test(\"Esquema: courses, totalElements, totalPages\", () => {",
+              "  pm.expect(j).to.have.keys(\"courses\",\"totalElements\",\"totalPages\");",
+              "  pm.expect(j.courses).to.be.an(\"array\");",
+              "});",
+              "pm.test(\"Respeta pageSize=2\", () => pm.expect(j.courses.length).to.be.at.most(2));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/courses?page=0&pageSize=2",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "courses"
+          ],
+          "query": [
+            {
+              "key": "page",
+              "value": "0"
+            },
+            {
+              "key": "pageSize",
+              "value": "2"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "PM-02 Consultar curso por id existente (positivo)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 200\", () => pm.response.to.have.status(200));",
+              "pm.test(\"Responde en menos de 500 ms\", () => pm.expect(pm.response.responseTime).to.be.below(500));",
+              "const j = pm.response.json();",
+              "pm.test(\"Devuelve el id 1 con nombre y lecciones\", () => {",
+              "  pm.expect(j._id).to.eql(1);",
+              "  pm.expect(j.name).to.be.a(\"string\").and.not.empty;",
+              "  pm.expect(j.lessons).to.be.an(\"array\").and.not.empty;",
+              "});",
+              "pm.test(\"Categoria valida\", () => pm.expect([\"Front-end\",\"Back-end\"]).to.include(j.category));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/courses/1",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "courses",
+            "1"
+          ]
+        }
+      }
+    },
+    {
+      "name": "PM-03 Consultar curso inexistente (negativo)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 404\", () => pm.response.to.have.status(404));",
+              "pm.test(\"No expone stacktrace\", () => pm.expect(pm.response.text()).to.not.include(\"Exception\"));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/courses/999999",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "courses",
+            "999999"
+          ]
+        }
+      }
+    },
+    {
+      "name": "PM-04 Consultar con id no numerico (negativo)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 400\", () => pm.response.to.have.status(400));",
+              "pm.test(\"No expone stacktrace\", () => pm.expect(pm.response.text()).to.not.include(\"Exception\"));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/courses/abc",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "courses",
+            "abc"
+          ]
+        }
+      }
+    },
+    {
+      "name": "PM-05 Buscar por nombre (positivo)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 200\", () => pm.response.to.have.status(200));",
+              "pm.test(\"Responde en menos de 500 ms\", () => pm.expect(pm.response.responseTime).to.be.below(500));",
+              "pm.test(\"Devuelve un arreglo con coincidencias\", () => {",
+              "  const j = pm.response.json();",
+              "  pm.expect(j).to.be.an(\"array\").and.not.empty;",
+              "  j.forEach(c => pm.expect(c.name.toLowerCase()).to.include(\"course\"));",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/courses/searchByName?name=Course",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "courses",
+            "searchByName"
+          ],
+          "query": [
+            {
+              "key": "name",
+              "value": "Course"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "PM-06 Crear curso valido (positivo)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 201\", () => pm.response.to.have.status(201));",
+              "pm.test(\"Responde en menos de 500 ms\", () => pm.expect(pm.response.responseTime).to.be.below(500));",
+              "const j = pm.response.json();",
+              "pm.test(\"Devuelve el curso creado con id\", () => {",
+              "  pm.expect(j._id).to.be.a(\"number\");",
+              "  pm.expect(j.name).to.eql(pm.collectionVariables.get(\"nombreCurso\"));",
+              "});",
+              "pm.collectionVariables.set(\"cursoId\", j._id);"
+            ]
+          }
+        },
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "// Nombre unico por ejecucion (la regla RF-02 impide duplicados)",
+              "const sufijo = Date.now().toString(36).toUpperCase();",
+              "pm.collectionVariables.set(\"nombreCurso\", \"Curso Postman \" + sufijo);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/courses",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "courses"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"{{nombreCurso}}\",\n  \"category\": \"Back-end\",\n  \"lessons\": [\n    {\n      \"name\": \"Introduccion al curso\",\n      \"youtubeUrl\": \"Fj3Zvf-N4bk\"\n    }\n  ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "PM-07 Crear curso con nombre duplicado (negativo, RF-02)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 409\", () => pm.response.to.have.status(409));",
+              "pm.test(\"Mensaje de conflicto\", () => pm.expect(pm.response.text()).to.include(\"already exists\"));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/courses",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "courses"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"{{nombreCurso}}\",\n  \"category\": \"Back-end\",\n  \"lessons\": [\n    {\n      \"name\": \"Introduccion al curso\",\n      \"youtubeUrl\": \"Fj3Zvf-N4bk\"\n    }\n  ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "PM-08 Crear curso con nombre de 4 caracteres (limite inferior)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 400\", () => pm.response.to.have.status(400));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/courses",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "courses"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Java\",\n  \"category\": \"Back-end\",\n  \"lessons\": [\n    {\n      \"name\": \"Introduccion al curso\",\n      \"youtubeUrl\": \"Fj3Zvf-N4bk\"\n    }\n  ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "PM-09 Crear curso con categoria invalida",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 400\", () => pm.response.to.have.status(400));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/courses",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "courses"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Curso de categoria invalida\",\n  \"category\": \"Mobile\",\n  \"lessons\": [\n    {\n      \"name\": \"Introduccion al curso\",\n      \"youtubeUrl\": \"Fj3Zvf-N4bk\"\n    }\n  ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "PM-10 Crear curso sin lecciones",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 400\", () => pm.response.to.have.status(400));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/courses",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "courses"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Curso sin lecciones\",\n  \"category\": \"Back-end\",\n  \"lessons\": []\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "PM-11 Crear curso con URL de YouTube de 12 caracteres",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 400\", () => pm.response.to.have.status(400));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/courses",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "courses"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Curso con URL invalida\",\n  \"category\": \"Back-end\",\n  \"lessons\": [\n    {\n      \"name\": \"Leccion uno\",\n      \"youtubeUrl\": \"Fj3Zvf-N4bkX\"\n    }\n  ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "PM-12 Crear curso con HTML en nombre de leccion (seguridad, INC-03)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 400\", () => pm.response.to.have.status(400));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/courses",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "courses"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Curso con leccion maliciosa\",\n  \"category\": \"Back-end\",\n  \"lessons\": [\n    {\n      \"name\": \"<img src=x onerror=alert(1)>\",\n      \"youtubeUrl\": \"Fj3Zvf-N4bk\"\n    }\n  ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "PM-13 Actualizar curso creado (positivo)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 200\", () => pm.response.to.have.status(200));",
+              "pm.test(\"Persisten los cambios\", () => {",
+              "  const j = pm.response.json();",
+              "  pm.expect(j.category).to.eql(\"Front-end\");",
+              "  pm.expect(j.lessons.length).to.eql(2);",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/courses/{{cursoId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "courses",
+            "{{cursoId}}"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"{{nombreCurso}}\",\n  \"category\": \"Front-end\",\n  \"lessons\": [\n    {\n      \"name\": \"Introduccion al curso\",\n      \"youtubeUrl\": \"Fj3Zvf-N4bk\"\n    },\n    {\n      \"name\": \"Segunda leccion\",\n      \"youtubeUrl\": \"Fj3Zvf-N4bk\"\n    }\n  ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "PM-14 Eliminar curso creado (positivo)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 204\", () => pm.response.to.have.status(204));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/courses/{{cursoId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "courses",
+            "{{cursoId}}"
+          ]
+        }
+      }
+    },
+    {
+      "name": "PM-15 Consultar curso eliminado (soft delete)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 404\", () => pm.response.to.have.status(404));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/courses/{{cursoId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "courses",
+            "{{cursoId}}"
+          ]
+        }
+      }
+    },
+    {
+      "name": "PM-16 Recrear nombre de curso eliminado (RF-02)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 409\", () => pm.response.to.have.status(409));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/courses",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "courses"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"{{nombreCurso}}\",\n  \"category\": \"Back-end\",\n  \"lessons\": [\n    {\n      \"name\": \"Introduccion al curso\",\n      \"youtubeUrl\": \"Fj3Zvf-N4bk\"\n    }\n  ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "PM-17 Eliminar curso inexistente (negativo)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 404\", () => pm.response.to.have.status(404));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/courses/999999",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "courses",
+            "999999"
+          ]
+        }
+      }
+    },
+    {
+      "name": "PM-18 Cabeceras de seguridad (INC-06)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 200\", () => pm.response.to.have.status(200));",
+              "pm.test(\"X-Content-Type-Options: nosniff\", () => pm.response.to.have.header(\"X-Content-Type-Options\",\"nosniff\"));",
+              "pm.test(\"X-Frame-Options: DENY\", () => pm.response.to.have.header(\"X-Frame-Options\",\"DENY\"));",
+              "pm.test(\"Content-Security-Policy presente\", () => pm.response.to.have.header(\"Content-Security-Policy\"));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/courses",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "courses"
+          ]
+        }
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8095"
+    },
+    {
+      "key": "cursoId",
+      "value": ""
+    },
+    {
+      "key": "nombreCurso",
+      "value": ""
+    }
+  ]
+}

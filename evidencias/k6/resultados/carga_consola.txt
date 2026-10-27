@@ -1,0 +1,37 @@
+PS C:\Users\Lenovo\Desktop\campuslion\evidencias\k6> k6 run -e BASE_URL=http://localhost:8095/api/courses carga.js
+k6.exe v2.3.0 (commit/e088784614, go1.26.8, windows/amd64) - 27/10/2026
+
+     execution: local
+        script: carga.js
+        output: -
+
+     scenarios: (100.00%) 1 scenario, 50 max VUs, 3m30s max duration (incl. graceful stop):
+              * default: Up to 50 looping VUs for 3m0s over 3 stages (gracefulRampDown: 30s, gracefulStop: 30s)
+
+     ✓ listado 200
+     ✓ listado trae cursos
+     ✓ por id 200
+     ✓ busqueda 200
+
+   ✓ checks.........................: 100.00% ✓ 11272     ✗ 0   
+     data_received..................: 15 MB   85 kB/s
+     data_sent......................: 721 kB  4.0 kB/s
+     http_req_blocked...............: avg=31.08µs  min=0s      med=0s     max=19.03ms  p(90)=0s       p(95)=0s     
+     http_req_connecting............: avg=24.76µs  min=0s      med=0s     max=19.03ms  p(90)=0s       p(95)=0s     
+   ✓ http_req_duration..............: avg=5.08ms   min=0s      med=3.01ms max=244.31ms p(90)=8.98ms   p(95)=13.49ms
+     ✓ { endpoint:busqueda }........: avg=6.01ms   min=508.9µs med=3.43ms max=244.31ms p(90)=10.9ms   p(95)=15.83ms
+     ✓ { endpoint:listado }.........: avg=5.2ms    min=502.6µs med=3.15ms max=226.09ms p(90)=9.19ms   p(95)=13.46ms
+     ✓ { endpoint:por_id }..........: avg=4.25ms   min=0s      med=2.55ms max=182.71ms p(90)=7.51ms   p(95)=11.32ms
+       { expected_response:true }...: avg=5.08ms   min=0s      med=3.01ms max=244.31ms p(90)=8.98ms   p(95)=13.49ms
+   ✓ http_req_failed................: 0.00%   ✓ 0         ✗ 7490
+     http_req_receiving.............: avg=276.51µs min=0s      med=0s     max=12.47ms  p(90)=887.81µs p(95)=998.7µs
+     http_req_sending...............: avg=14.26µs  min=0s      med=0s     max=6.42ms   p(90)=0s       p(95)=0s     
+     http_req_tls_handshaking.......: avg=0s       min=0s      med=0s     max=0s       p(90)=0s       p(95)=0s     
+     http_req_waiting...............: avg=4.79ms   min=0s      med=2.74ms max=244.31ms p(90)=8.63ms   p(95)=13.04ms
+     http_reqs......................: 7490    41.395647/s
+     iteration_duration.............: avg=1s       min=1s      med=1s     max=1.24s    p(90)=1.01s    p(95)=1.01s  
+     iterations.....................: 7490    41.395647/s
+     vus............................: 1       min=1       max=50
+
+running (3m00.9s), 00/50 VUs, 7490 complete and 0 interrupted iterations
+default ✓ [======================================] 00/50 VUs  3m0s

@@ -1,0 +1,39 @@
+     ✓ status 200
+
+     checks.........................: 100.00% ✓ 108831    ✗ 0     
+     data_received..................: 280 MB  716 kB/s
+     data_sent......................: 11 MB   28 kB/s
+     duracion_por_etapa.............: avg=117.07ms min=0s       med=49.8ms   max=1.68s    p(90)=325.93ms p(95)=415.25ms
+     ✓ { etapa:1_subida_50 }........: avg=12.56ms  min=729.7µs  med=6.07ms   max=203.99ms p(90)=29.1ms   p(95)=47.24ms 
+     ✓ { etapa:2_meseta_50 }........: avg=10.43ms  min=0s       med=4.6ms    max=212.51ms p(90)=22.31ms  p(95)=39.48ms 
+     ✓ { etapa:3_subida_100 }.......: avg=27.21ms  min=944.8µs  med=12.69ms  max=446.56ms p(90)=60.97ms  p(95)=94.7ms  
+     ✓ { etapa:4_meseta_100 }.......: avg=30.44ms  min=510.8µs  med=10.39ms  max=444.97ms p(90)=81.88ms  p(95)=142.63ms
+     ✓ { etapa:5_subida_200 }.......: avg=30.62ms  min=527.2µs  med=12.29ms  max=430.47ms p(90)=82.84ms  p(95)=117.59ms
+     ✓ { etapa:6_meseta_200 }.......: avg=41.97ms  min=722.9µs  med=20.4ms   max=421.8ms  p(90)=119.58ms p(95)=153.92ms
+     ✗ { etapa:7_subida_400 }.......: avg=132.11ms min=621.8µs  med=92.99ms  max=1.01s    p(90)=302.04ms p(95)=388.92ms
+     ✗ { etapa:8_meseta_400 }.......: avg=258.22ms min=1.74ms   med=227.76ms max=1.68s    p(90)=460.05ms p(95)=533.93ms
+     ✗ { etapa:9_recuperacion }.....: avg=102.78ms min=890.7µs  med=57.03ms  max=921.1ms  p(90)=272.81ms p(95)=352.8ms 
+     error_por_etapa................: 0.00%   ✓ 0         ✗ 108831
+     ✓ { etapa:1_subida_50 }........: 0.00%   ✓ 0         ✗ 1483  
+     ✓ { etapa:2_meseta_50 }........: 0.00%   ✓ 0         ✗ 5845  
+     ✓ { etapa:3_subida_100 }.......: 0.00%   ✓ 0         ✗ 4229  
+     ✓ { etapa:4_meseta_100 }.......: 0.00%   ✓ 0         ✗ 11211 
+     ✓ { etapa:5_subida_200 }.......: 0.00%   ✓ 0         ✗ 8484  
+     ✓ { etapa:6_meseta_200 }.......: 0.00%   ✓ 0         ✗ 21955 
+     ✓ { etapa:7_subida_400 }.......: 0.00%   ✓ 0         ✗ 14280 
+     ✓ { etapa:8_meseta_400 }.......: 0.00%   ✓ 0         ✗ 31450 
+     ✓ { etapa:9_recuperacion }.....: 0.00%   ✓ 0         ✗ 9894  
+     http_req_blocked...............: avg=57.32µs  min=0s       med=0s       max=192.16ms p(90)=0s       p(95)=0s      
+     http_req_connecting............: avg=40.91µs  min=0s       med=0s       max=40.11ms  p(90)=0s       p(95)=0s      
+   ✗ http_req_duration..............: avg=117.07ms min=0s       med=49.8ms   max=1.68s    p(90)=325.93ms p(95)=415.25ms
+       { expected_response:true }...: avg=117.07ms min=0s       med=49.8ms   max=1.68s    p(90)=325.93ms p(95)=415.25ms
+   ✓ http_req_failed................: 0.00%   ✓ 0         ✗ 108831
+     http_req_receiving.............: avg=189.13µs min=0s       med=0s       max=103.92ms p(90)=799.1µs  p(95)=1.01ms  
+     http_req_sending...............: avg=49.75µs  min=0s       med=0s       max=64.94ms  p(90)=0s       p(95)=0s      
+     http_req_tls_handshaking.......: avg=0s       min=0s       med=0s       max=0s       p(90)=0s       p(95)=0s      
+     http_req_waiting...............: avg=116.84ms min=0s       med=49.54ms  max=1.68s    p(90)=325.78ms p(95)=415.08ms
+     http_reqs......................: 108831  278.83117/s
+     iteration_duration.............: avg=621.04ms min=500.51ms med=555.7ms  max=2.19s    p(90)=830.05ms p(95)=919.31ms
+     iterations.....................: 108831  278.83117/s
+     vus............................: 6       min=2       max=400 
+     vus_max........................: 400     min=400     max=400 
