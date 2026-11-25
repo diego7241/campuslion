@@ -1,16 +1,22 @@
+
 mat-card {
-  max-width: 80%;
+  width: min(900px, calc(100% - 32px));
+  max-width: 900px;
   margin: 2em auto;
+  box-sizing: border-box;
   text-align: center;
 }
 
 .full-width {
+  display: block;
   width: 100%;
+  max-width: 100%;
+  min-width: 0;
 }
 
 .min-width {
   width: 100%;
-  min-width: 150px;
+  min-width: 0;
 }
 
 .btn-space {
@@ -19,24 +25,104 @@ mat-card {
 
 .actions-center {
   justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
 .form-array-error {
   text-align: left;
 }
 
-.lesson-name-cell {
-  width: 65%;
-}
-
-.lesson-url-cell {
-  width: 30%;
-}
-
 .lessons-toolbar {
   background: #E8EAF6;
-  height: 50px;
+  min-height: 50px;
   margin-top: 10px;
   margin-bottom: 10px;
   font-weight: 500;
+}
+
+.fill-remaining-space {
+  flex: 1 1 auto;
+}
+
+/* Distribución de las lecciones */
+.lesson-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr) 48px;
+  grid-template-areas: "name url remove";
+  gap: 12px;
+  align-items: start;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 12px;
+}
+
+.lesson-row > * {
+  min-width: 0;
+}
+
+.lesson-name-cell {
+  grid-area: name;
+  width: 100% !important;
+  min-width: 0;
+}
+
+.lesson-url-cell {
+  grid-area: url;
+  width: 100% !important;
+  min-width: 0;
+}
+
+.lesson-name-cell mat-form-field,
+.lesson-url-cell mat-form-field {
+  width: 100%;
+  min-width: 0;
+}
+
+.lesson-remove {
+  grid-area: remove;
+  margin-top: 6px;
+}
+
+/* Tablets y móviles */
+@media (max-width: 900px) {
+  mat-card {
+    width: calc(100% - 20px);
+    margin: 12px auto;
+  }
+
+  .lesson-row {
+    grid-template-columns: minmax(0, 1fr) 48px;
+    grid-template-areas:
+      "name remove"
+      "url remove";
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .lesson-name-cell,
+  .lesson-url-cell {
+    width: 100% !important;
+  }
+
+  .lesson-remove {
+    align-self: center;
+    margin: 0;
+  }
+
+  .btn-space {
+    margin-left: 0;
+  }
+}
+
+/* Móviles pequeños */
+@media (max-width: 380px) {
+  mat-card {
+    width: calc(100% - 12px);
+  }
+
+  .lessons-toolbar {
+    padding-inline: 8px;
+  }
 }

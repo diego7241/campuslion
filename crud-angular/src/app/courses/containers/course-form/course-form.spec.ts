@@ -13,7 +13,7 @@ const existingCourse: Course = {
   _id: '1',
   name: 'Angular Basics',
   category: 'front-end',
-  lessons: [{ _id: 1, name: 'Intro Lesson', youtubeUrl: 'abcdefghij' }]
+  lessons: [{ _id: 1, name: 'Intro Lesson', youtubeUrl: 'abcdefghijk' }]
 };
 
 const buildModule = async () => {
@@ -24,7 +24,7 @@ const buildModule = async () => {
 };
 
 const lessonNameInputs = (fixture: ComponentFixture<CourseForm>): NodeListOf<HTMLInputElement> =>
-  fixture.nativeElement.querySelectorAll('td.lesson-name-cell input');
+  fixture.nativeElement.querySelectorAll('.lesson-name-cell input');
 
 describe('CourseForm — new course', () => {
   let component: CourseForm;

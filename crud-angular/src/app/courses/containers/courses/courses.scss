@@ -1,21 +1,38 @@
+
+:host {
+  display: block;
+  width: 100%;
+  min-width: 0;
+}
+
 mat-card {
-  max-width: 80%;
-  margin: 2em auto;
+  box-sizing: border-box;
+  width: calc(100% - 24px);
+  max-width: 1100px;
+  margin: 16px auto;
   text-align: center;
 }
 
-.loading-spinner {
-  padding: 25px;
-  background: rgba(0, 0, 0, 0.15);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.mat-elevation-z8 {
+  width: 100%;
+  min-width: 0;
 }
 
-.load-error {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5em;
-  padding: 2em;
+app-courses-list {
+  display: block;
+  width: 100%;
+  min-width: 0;
+}
+
+mat-paginator {
+  display: block;
+  width: 100%;
+  min-width: 0;
+}
+
+@media (max-width: 600px) {
+  mat-card {
+    width: calc(100% - 12px);
+    margin: 8px auto;
+  }
 }

@@ -1,16 +1,25 @@
+
 <mat-drawer-container autosize class="example-container">
-  <mat-drawer #drawer mode="side" opened="true" class="example-sidenav">
+  <mat-drawer
+    #drawer
+    [mode]="isMobile() ? 'over' : 'side'"
+    [opened]="!isMobile()"
+    class="example-sidenav">
+
     <div>
       <h3>{{ course().name }}</h3>
     </div>
+
     @if (course().lessons; as lessons) {
-      <mat-nav-list dense>
+      <mat-nav-list>
         @for (lesson of lessons; track lesson._id) {
           <mat-list-item
             class="list-with-border"
             (click)="display(lesson)"
             [activated]="displaySelectedLesson(lesson)">
-            <span matListItemTitle>{{ lesson.name }}</span>
+            <span matListItemTitle class="lesson-title">
+              {{ lesson.name }}
+            </span>
           </mat-list-item>
         }
       </mat-nav-list>
@@ -18,10 +27,26 @@
   </mat-drawer>
 
   <div class="example-sidenav-content" #youTubePlayer>
-    <youtube-player
-      [width]="videoWidth()"
-      [height]="videoHeight()"
-      [videoId]="selectedLesson()?.youtubeUrl"></youtube-player>
+
+    <button
+      matButton="outlined"
+      type="button"
+      class="lessons-toggle"
+      (click)="drawer.toggle()">
+      Ver lecciones
+    </button>
+
+    @if (selectedLesson()?.youtubeUrl) {
+      <youtube-player
+        [width]="videoWidth()"
+        [height]="videoHeight()"
+        [videoId]="selectedLesson()?.youtubeUrl">
+      </youtube-player>
+    } @else {
+      <p class="empty-player-message">
+        No hay una lección seleccionada para reproducir.
+      </p>
+    }
+
   </div>
 </mat-drawer-container>
-

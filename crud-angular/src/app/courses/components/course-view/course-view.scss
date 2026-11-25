@@ -1,20 +1,41 @@
+
 .example-container {
   position: absolute;
   top: 60px;
   bottom: 60px;
   left: 0;
   right: 0;
+  min-width: 0;
+}
+
+.example-sidenav {
+  box-sizing: border-box;
+  width: 300px;
+  max-width: 85vw;
+  padding: 20px;
+  overflow-y: auto;
 }
 
 .example-sidenav-content {
   display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
   height: 100%;
   align-items: center;
   justify-content: center;
+  padding: 16px;
+  overflow: auto;
 }
 
-.example-sidenav {
-  padding: 20px;
+youtube-player {
+  display: block;
+  max-width: 100%;
+}
+
+.lessons-toggle {
+  display: none;
 }
 
 .list-with-border {
@@ -25,4 +46,63 @@
   font-style: italic;
   font-weight: bold !important;
   background-color: whitesmoke;
+}
+
+.empty-player-message {
+  text-align: center;
+  padding: 16px;
+}
+
+@media (max-width: 767px) {
+  .example-sidenav {
+    width: min(82vw, 320px);
+    padding: 14px;
+  }
+
+  .example-sidenav-content {
+    justify-content: flex-start;
+    padding: 16px 12px;
+  }
+
+  .lessons-toggle {
+    display: inline-flex;
+    align-self: flex-start;
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 400px) {
+  .example-sidenav-content {
+    padding: 12px 8px;
+  }
+}
+/* Adaptación de los nombres de las lecciones */
+.example-sidenav {
+  box-sizing: border-box;
+  width: 320px;
+  max-width: 85vw;
+}
+
+.example-sidenav mat-nav-list {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.example-sidenav mat-list-item.list-with-border {
+  height: auto !important;
+  min-height: 48px;
+}
+
+.lesson-title {
+  white-space: normal !important;
+  overflow-wrap: anywhere;
+  line-height: 1.35;
+  padding-block: 8px;
+}
+
+@media (max-width: 767px) {
+  .example-sidenav {
+    width: min(320px, 85vw);
+    padding: 12px;
+  }
 }

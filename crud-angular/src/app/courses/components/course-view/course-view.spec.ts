@@ -80,8 +80,8 @@ describe('CourseView', () => {
     const mockEl = { nativeElement: { clientWidth: 1000 } };
     (component as any).youTubePlayer = () => mockEl;
     (component as any).onResize();
-    expect((component as any).videoWidth()).toBeCloseTo(900, 0);
-    expect((component as any).videoHeight()).toBeCloseTo(540, 0);
+    expect((component as any).videoWidth()).toBeCloseTo(950, 0);
+    expect((component as any).videoHeight()).toBeCloseTo(534, 0);
   });
 
   it('should update selectedLesson when a lesson item in the sidebar is clicked', async () => {

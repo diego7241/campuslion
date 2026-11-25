@@ -1,56 +1,97 @@
-<mat-table [dataSource]="courses()">
-  <!-- Name Column -->
-  <ng-container matColumnDef="name">
-    <mat-header-cell *matHeaderCellDef>Course</mat-header-cell>
-    <mat-cell *matCellDef="let course"
-      ><button type="button" class="link-button" (click)="onView(course)">
-        {{ course.name }}
-      </button></mat-cell
-    >
-  </ng-container>
 
-  <!-- Category Column -->
-  <ng-container matColumnDef="category">
-    <mat-header-cell *matHeaderCellDef>Category</mat-header-cell>
-    <mat-cell *matCellDef="let course">
-      {{ course.category }}
-      <mat-icon aria-hidden="false" aria-label="Course Category">{{
-        course.category | categoryIcon
-      }}</mat-icon>
-    </mat-cell>
-  </ng-container>
+<div
+  class="table-responsive"
+  role="region"
+  aria-label="Listado de cursos"
+  tabindex="0">
 
-  <!-- Actions Column -->
-  <ng-container matColumnDef="actions">
-    <mat-header-cell *matHeaderCellDef class="action-column">
-      <button
-        matMiniFab
-        aria-label="Add a new Course"
-        (click)="onAdd()"
-        class="action-column-header">
-        <mat-icon>add</mat-icon>
-      </button>
-    </mat-header-cell>
+  <mat-table
+    class="courses-table"
+    [dataSource]="courses()"
+    aria-label="Cursos disponibles">
 
-    <mat-cell *matCellDef="let course" class="action-column">
-      <button
-        matIconButton
-        aria-label="Update Course"
-        (click)="onEdit(course)">
-        <mat-icon>edit</mat-icon>
-      </button>
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef>
+        Course
+      </mat-header-cell>
 
-      <button
-        matIconButton
-        class="danger-action"
-        aria-label="Remove Course"
-        (click)="onRemove(course)">
-        <mat-icon>delete</mat-icon>
-      </button>
-    </mat-cell>
-  </ng-container>
+      <mat-cell *matCellDef="let course">
+        <button
+          type="button"
+          class="link-button"
+          (click)="onView(course)">
+          {{ course.name }}
+        </button>
+      </mat-cell>
+    </ng-container>
 
-  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
-</mat-table>
+    <!-- Category Column -->
+    <ng-container matColumnDef="category">
+      <mat-header-cell *matHeaderCellDef>
+        Category
+      </mat-header-cell>
 
+      <mat-cell *matCellDef="let course">
+        {{ course.category }}
+
+        <mat-icon
+          aria-hidden="true">
+          {{ course.category | categoryIcon }}
+        </mat-icon>
+      </mat-cell>
+    </ng-container>
+
+    <!-- Actions Column -->
+    <ng-container matColumnDef="actions">
+      <mat-header-cell
+        *matHeaderCellDef
+        class="action-column">
+
+        <button
+          type="button"
+          matMiniFab
+          aria-label="Add a new Course"
+          (click)="onAdd()"
+          class="action-column-header">
+          <mat-icon>add</mat-icon>
+        </button>
+
+      </mat-header-cell>
+
+      <mat-cell
+        *matCellDef="let course"
+        class="action-column">
+
+        <button
+          type="button"
+          matIconButton
+          aria-label="Update Course"
+          (click)="onEdit(course)">
+          <mat-icon>edit</mat-icon>
+        </button>
+
+        <button
+          type="button"
+          matIconButton
+          class="danger-action"
+          aria-label="Remove Course"
+          (click)="onRemove(course)">
+          <mat-icon>delete</mat-icon>
+        </button>
+
+      </mat-cell>
+    </ng-container>
+
+    <!-- Table Header and Rows -->
+    <mat-header-row
+      *matHeaderRowDef="displayedColumns">
+    </mat-header-row>
+
+    <mat-row
+      *matRowDef="let row; columns: displayedColumns">
+    </mat-row>
+
+  </mat-table>
+
+</div>

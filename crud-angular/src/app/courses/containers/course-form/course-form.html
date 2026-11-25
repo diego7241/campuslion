@@ -1,12 +1,26 @@
+
 <mat-card>
   <mat-toolbar>Course Details</mat-toolbar>
 
   <mat-card-content>
-    <form class="min-width" (submit)="$event.preventDefault(); onSubmit()">
+
+    <form
+      class="min-width"
+      (submit)="$event.preventDefault(); onSubmit()">
+
+      <!-- Course Name -->
       <mat-form-field class="full-width">
         <mat-label>Name</mat-label>
-        <input matInput [formField]="courseForm.name" #name />
-        <mat-hint align="end">{{ name.value.length }} / {{ nameMaxLength }}</mat-hint>
+
+        <input
+          matInput
+          [formField]="courseForm.name"
+          #name />
+
+        <mat-hint align="end">
+          {{ name.value.length }} / {{ nameMaxLength }}
+        </mat-hint>
+
         @if (courseForm.name().invalid() && courseForm.name().touched()) {
           <mat-error>
             {{ courseForm.name().errors()[0]?.message }}
@@ -14,74 +28,131 @@
         }
       </mat-form-field>
 
+      <!-- Category -->
       <mat-form-field class="full-width">
         <mat-label>Category</mat-label>
+
         <mat-select [formField]="courseForm.category">
           <mat-option value="Front-end">Front-End</mat-option>
           <mat-option value="Back-end">Back-End</mat-option>
         </mat-select>
+
         @if (courseForm.category().invalid() && courseForm.category().touched()) {
-          <mat-error>{{ courseForm.category().errors()[0]?.message }}</mat-error>
+          <mat-error>
+            {{ courseForm.category().errors()[0]?.message }}
+          </mat-error>
         }
       </mat-form-field>
 
+      <!-- Lessons Toolbar -->
       <mat-toolbar class="lessons-toolbar">
         <span>Lessons</span>
+
         <div class="fill-remaining-space"></div>
-        <button matIconButton type="button" (click)="addLesson()">
-          <mat-icon aria-label="Add a New Lesson">add</mat-icon>
+
+        <button
+          matIconButton
+          type="button"
+          aria-label="Add a New Lesson"
+          (click)="addLesson()">
+          <mat-icon>add</mat-icon>
         </button>
       </mat-toolbar>
 
+      <!-- Lessons Validation -->
       @if (courseForm.lessons().errors().length && courseForm.lessons().touched()) {
         <mat-error class="form-array-error">
           {{ courseForm.lessons().errors()[0]?.message }}
         </mat-error>
       }
 
+      <!-- Lessons -->
       @for (lessonForm of courseForm.lessons; track $index; let i = $index) {
-        <table class="full-width">
-          <tr>
-            <td class="lesson-name-cell">
-              <mat-form-field class="full-width">
-                <mat-label>Lesson Name</mat-label>
-                <input matInput [formField]="lessonForm.name" />
-                @if (lessonForm.name().invalid() && lessonForm.name().touched()) {
-                  <mat-error>
-                    {{ lessonForm.name().errors()[0]?.message }}
-                  </mat-error>
-                }
-              </mat-form-field>
-            </td>
-            <td class="lesson-url-cell">
-              <mat-form-field class="full-width">
-                <mat-label>URL</mat-label>
-                <span matPrefix>https://youtu.be/</span>
-                <input matInput [formField]="lessonForm.youtubeUrl" />
-                @if (lessonForm.youtubeUrl().invalid() && lessonForm.youtubeUrl().touched()) {
-                  <mat-error>
-                    {{ lessonForm.youtubeUrl().errors()[0]?.message }}
-                  </mat-error>
-                }
-              </mat-form-field>
-            </td>
-            <td>
-              <button matIconButton class="danger-action" type="button" (click)="removeLesson(i)">
-                <mat-icon aria-label="Remove Lesson">delete</mat-icon>
-              </button>
-            </td>
-          </tr>
-        </table>
+
+        <div class="lesson-row">
+
+          <!-- Lesson Name -->
+          <div class="lesson-name-cell">
+            <mat-form-field class="full-width">
+              <mat-label>Lesson Name</mat-label>
+
+              <input
+                matInput
+                [formField]="lessonForm.name"
+                placeholder="Enter lesson name" />
+
+              @if (lessonForm.name().invalid() && lessonForm.name().touched()) {
+                <mat-error>
+                  {{ lessonForm.name().errors()[0]?.message }}
+                </mat-error>
+              }
+            </mat-form-field>
+          </div>
+
+          <!-- YouTube Link -->
+          <div class="lesson-url-cell">
+            <mat-form-field class="full-width">
+              <mat-label>YouTube Video Link</mat-label>
+
+              <textarea
+                matInput
+                rows="2"
+                [formField]="lessonForm.youtubeUrl"
+                placeholder="https://www.youtube.com/watch?v=...">
+              </textarea>
+
+              <mat-hint>
+                Pega aquí el enlace completo de YouTube o el ID del video.
+              </mat-hint>
+
+              @if (
+                lessonForm.youtubeUrl().invalid() &&
+                lessonForm.youtubeUrl().touched()
+              ) {
+                <mat-error>
+                  {{ lessonForm.youtubeUrl().errors()[0]?.message }}
+                </mat-error>
+              }
+            </mat-form-field>
+          </div>
+
+          <!-- Remove Lesson -->
+          <button
+            matIconButton
+            class="danger-action lesson-remove"
+            type="button"
+            aria-label="Remove Lesson"
+            (click)="removeLesson(i)">
+
+            <mat-icon>delete</mat-icon>
+
+          </button>
+
+        </div>
+
       }
+
     </form>
+
   </mat-card-content>
 
+  <!-- Form Actions -->
   <mat-card-actions class="actions-center">
-    <button matButton="filled" (click)="onSubmit()" type="submit">
+
+    <button
+      matButton="filled"
+      type="submit"
+      (click)="onSubmit()">
       Save
     </button>
-    <button matButton="outlined" (click)="onCancel()" class="btn-space" type="button">
+
+    <button
+      matButton="outlined"
+      type="button"
+      (click)="onCancel()"
+      class="btn-space">
       Cancel
     </button>
+
   </mat-card-actions>
 </mat-card>
