@@ -1,0 +1,168 @@
+❯ Building...
+✔ Building...
+Application bundle generation complete. [3.040 seconds] - 2026-11-25T19:36:58.863Z
+
+
+ RUN  v4.1.11 /tmp/claude-0/-home-claude/f25d9325-2c80-5dd7-beef-282e1cf4595f/scratchpad/merged/crud-angular
+
+ ❯  crud-angular  src/app/courses/containers/course-form/course-form.spec.ts (12 tests | 10 failed) 777ms
+     × should render an empty form with one default lesson row 61ms
+     × should add a lesson row when the add button is clicked 72ms
+     × should remove a lesson row when the remove button is clicked 89ms
+     × should not make HTTP call when form is invalid on submit 60ms
+     × should display validation errors after an invalid submit 64ms
+     × should update the model when typing into the name input 61ms
+     × should populate the form with existing course values 65ms
+     × should PUT on valid form submit 56ms
+     × should call snackBar and navigate back on successful save 57ms
+     × should open error dialog when save throws 57ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 10 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL   crud-angular  src/app/courses/containers/course-form/course-form.spec.ts > CourseForm — new course > should render an empty form with one default lesson row
+AssertionError: expected +0 to be 1 // Object.is equality
+
+- Expected
++ Received
+
+- 1
++ 0
+
+ ❯ src/app/courses/containers/course-form/course-form.spec.ts:53:46
+     51|     const nameInput: HTMLInputElement = fixture.nativeElement.querySel…
+     52|     expect(nameInput.value).toBe('');
+     53|     expect(lessonNameInputs(fixture).length).toBe(1);
+       |                                              ^
+     54|   });
+     55|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/10]⎯
+
+ FAIL   crud-angular  src/app/courses/containers/course-form/course-form.spec.ts > CourseForm — new course > should add a lesson row when the add button is clicked
+AssertionError: expected +0 to be 2 // Object.is equality
+
+- Expected
++ Received
+
+- 2
++ 0
+
+ ❯ src/app/courses/containers/course-form/course-form.spec.ts:60:46
+     58|     addBtn.click();
+     59|     await fixture.whenStable();
+     60|     expect(lessonNameInputs(fixture).length).toBe(2);
+       |                                              ^
+     61|   });
+     62|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/10]⎯
+
+ FAIL   crud-angular  src/app/courses/containers/course-form/course-form.spec.ts > CourseForm — new course > should remove a lesson row when the remove button is clicked
+AssertionError: expected +0 to be 2 // Object.is equality
+
+- Expected
++ Received
+
+- 2
++ 0
+
+ ❯ src/app/courses/containers/course-form/course-form.spec.ts:66:46
+     64|     fixture.nativeElement.querySelector('mat-toolbar button').click();
+     65|     await fixture.whenStable();
+     66|     expect(lessonNameInputs(fixture).length).toBe(2);
+       |                                              ^
+     67|
+     68|     fixture.nativeElement.querySelector('button.danger-action').click(…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/10]⎯
+
+ FAIL   crud-angular  src/app/courses/containers/course-form/course-form.spec.ts > CourseForm — new course > should not make HTTP call when form is invalid on submit
+TypeError: Cannot read properties of null (reading 'click')
+ ❯ src/app/courses/containers/course-form/course-form.spec.ts:74:64
+     72|
+     73|   it('should not make HTTP call when form is invalid on submit', async…
+     74|     fixture.nativeElement.querySelector('button[type="submit"]').click…
+       |                                                                ^
+     75|     await fixture.whenStable();
+     76|     httpMock.expectNone('/api/courses');
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/10]⎯
+
+ FAIL   crud-angular  src/app/courses/containers/course-form/course-form.spec.ts > CourseForm — new course > should display validation errors after an invalid submit
+TypeError: Cannot read properties of null (reading 'click')
+ ❯ src/app/courses/containers/course-form/course-form.spec.ts:80:64
+     78|
+     79|   it('should display validation errors after an invalid submit', async…
+     80|     fixture.nativeElement.querySelector('button[type="submit"]').click…
+       |                                                                ^
+     81|     await fixture.whenStable();
+     82|     fixture.detectChanges();
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/10]⎯
+
+ FAIL   crud-angular  src/app/courses/containers/course-form/course-form.spec.ts > CourseForm — new course > should update the model when typing into the name input
+TypeError: Cannot read properties of null (reading 'click')
+ ❯ src/app/courses/containers/course-form/course-form.spec.ts:94:64
+     92|     await fixture.whenStable();
+     93|
+     94|     fixture.nativeElement.querySelector('button[type="submit"]').click…
+       |                                                                ^
+     95|     await fixture.whenStable();
+     96|     fixture.detectChanges();
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/10]⎯
+
+ FAIL   crud-angular  src/app/courses/containers/course-form/course-form.spec.ts > CourseForm — edit course > should populate the form with existing course values
+TypeError: Cannot read properties of undefined (reading 'value')
+ ❯ src/app/courses/containers/course-form/course-form.spec.ts:122:24
+    120|     expect(nameInput.value).toBe('Angular Basics');
+    121|     const lessonInput = lessonNameInputs(fixture)[0];
+    122|     expect(lessonInput.value).toBe('Intro Lesson');
+       |                        ^
+    123|   });
+    124|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/10]⎯
+
+ FAIL   crud-angular  src/app/courses/containers/course-form/course-form.spec.ts > CourseForm — edit course > should PUT on valid form submit
+TypeError: Cannot read properties of null (reading 'click')
+ ❯ src/app/courses/containers/course-form/course-form.spec.ts:126:64
+    124|
+    125|   it('should PUT on valid form submit', async () => {
+    126|     fixture.nativeElement.querySelector('button[type="submit"]').click…
+       |                                                                ^
+    127|     const req = httpMock.expectOne('/api/courses/1');
+    128|     expect(req.request.method).toBe('PUT');
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/10]⎯
+
+ FAIL   crud-angular  src/app/courses/containers/course-form/course-form.spec.ts > CourseForm — edit course > should call snackBar and navigate back on successful save
+TypeError: Cannot read properties of null (reading 'click')
+ ❯ src/app/courses/containers/course-form/course-form.spec.ts:137:64
+    135|     const locationSpy = vi.spyOn(TestBed.inject(Location), 'back');
+    136|
+    137|     fixture.nativeElement.querySelector('button[type="submit"]').click…
+       |                                                                ^
+    138|     httpMock.expectOne('/api/courses/1').flush(existingCourse);
+    139|     await fixture.whenStable();
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/10]⎯
+
+ FAIL   crud-angular  src/app/courses/containers/course-form/course-form.spec.ts > CourseForm — edit course > should open error dialog when save throws
+TypeError: Cannot read properties of null (reading 'click')
+ ❯ src/app/courses/containers/course-form/course-form.spec.ts:148:64
+    146|     const dialogSpy = vi.spyOn(fixture.debugElement.injector.get(MatDi…
+    147|
+    148|     fixture.nativeElement.querySelector('button[type="submit"]').click…
+       |                                                                ^
+    149|     httpMock.expectOne('/api/courses/1').error(new ProgressEvent('erro…
+    150|     await fixture.whenStable();
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/10]⎯
+
+
+ Test Files  1 failed | 9 passed (10)
+      Tests  10 failed | 55 passed (65)
+   Start at  14:36:59
+   Duration  4.34s (transform 257ms, setup 301ms, import 818ms, tests 2.43s, environment 590ms)
+
